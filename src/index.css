@@ -84,7 +84,7 @@ body::-webkit-scrollbar {
       }
 
       .hero-description {
-        @apply  font-paragraph text-dark-brown text-center md:max-w-lg max-w-sm px-5 md:text-lg leading-[115%] mt-3;
+        @apply font-paragraph text-dark-brown text-center md:max-w-lg max-w-sm px-5 md:text-lg leading-[115%] mt-3;
       }
 
       .hero-button {

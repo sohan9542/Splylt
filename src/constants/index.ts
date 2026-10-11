@@ -1,10 +1,5 @@
 export type FlavorColor =
-  | "brown"
-  | "red"
-  | "blue"
-  | "orange"
-  | "white"
-  | "black";
+  "brown" | "red" | "blue" | "orange" | "white" | "black";
 
 export interface Flavor {
   name: string;
