@@ -1,73 +1,104 @@
-# React + TypeScript + Vite
+# SPYLT — Scroll Animation Study
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A frontend recreation of the [Awwwards Site of the Day](https://www.awwwards.com/sites/spylt-milk) marketing experience for **SPYLT**, a protein + caffeine flavoured milk brand (original design by [Tubik Studio](https://tubikstudio.com/works/spylt)).
 
-Currently, two official plugins are available:
+Built by [Sohanur Rahman](https://github.com/sohan9542) as a portfolio project to practice scroll-driven storytelling with GSAP.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+> This is an unofficial learning recreation. SPYLT branding and product imagery belong to their respective owners.
 
-## React Compiler
+## Live demo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+No public deployment is configured for this repository yet. Run locally with the steps below.
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Smooth scrolling via GSAP `ScrollSmoother`
+- Hero entrance timeline with `SplitText` character reveals and clip-path subtitle wipe
+- Scroll-scrubbed hero tilt / scale transition
+- Message section word-color scrub and paragraph reveal
+- Horizontally pinned flavor carousel driven by vertical scroll
+- Responsive layout with Tailwind CSS v4
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tech stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| Layer     | Choice                                                                  |
+| --------- | ----------------------------------------------------------------------- |
+| UI        | React 19 + TypeScript                                                   |
+| Bundler   | Vite 8                                                                  |
+| Styling   | Tailwind CSS v4 (`@tailwindcss/vite`)                                   |
+| Animation | GSAP 3 + `@gsap/react` (`ScrollTrigger`, `ScrollSmoother`, `SplitText`) |
+| Quality   | ESLint, Prettier, Vitest                                                |
+| CI        | GitHub Actions                                                          |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Architecture
+
+```
+src/
+  App.tsx                 # Registers GSAP plugins, ScrollSmoother shell
+  components/             # Reusable UI pieces (Navbar, flavor title/slider)
+  constants/              # Flavor, nutrient, and testimonial data + helpers
+  sections/               # Page sections composed in App
+  index.css               # Design tokens, section styles, utilities
+public/
+  images/ videos/ fonts/  # Static brand assets served as-is
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The page is a single-route static SPA. Section components own their GSAP timelines via `useGSAP`. Product data lives in `src/constants` so the flavor slider and future nutrition/testimonial sections share the same source of truth.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+**Implemented sections today:** Hero, Message, Flavors.  
+**Assets / styles prepared but not wired yet:** nutrition, benefits, testimonials, and footer (see unused CSS blocks and media under `public/`).
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Local setup
+
+Requirements: Node.js 20+ and npm.
+
+```bash
+git clone https://github.com/sohan9542/Splylt.git
+cd Splylt
+npm install
+npm run dev
 ```
+
+Open the URL printed by Vite (usually `http://localhost:5173`).
+
+## Environment variables
+
+None required. See [`.env.example`](./.env.example).
+
+## Scripts
+
+| Script                 | Purpose                             |
+| ---------------------- | ----------------------------------- |
+| `npm run dev`          | Start Vite dev server               |
+| `npm run build`        | Typecheck and production build      |
+| `npm run preview`      | Preview the production build        |
+| `npm run lint`         | ESLint                              |
+| `npm run typecheck`    | TypeScript project build (`tsc -b`) |
+| `npm run format`       | Format with Prettier                |
+| `npm run format:check` | Check Prettier formatting (CI)      |
+| `npm run test`         | Run Vitest once                     |
+| `npm run test:watch`   | Vitest watch mode                   |
+
+## Project structure
+
+```
+.
+├── .github/workflows/ci.yml
+├── public/                 # Static images, videos, fonts
+├── src/
+│   ├── components/
+│   ├── constants/
+│   ├── sections/
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── index.css
+├── index.html
+├── package.json
+├── vite.config.ts
+└── eslint.config.js
+```
+
+## Notes
+
+- Large MP4/WebP assets are committed under `public/` for the unfinished sections; they inflate clone size but are intentional media for the full page recreation.
+- GSAP `SplitText` and `ScrollSmoother` are used from the installed `gsap` package. Confirm your GSAP license covers Club plugins if you deploy commercially.
