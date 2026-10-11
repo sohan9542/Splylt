@@ -1,6 +1,6 @@
-import React from "react";
 import FlavourTitle from "../components/FlavourTitle";
 import FlavourSlider from "../components/FlavourSlider";
+
 const FlavourSection = () => {
   return (
     <div className="flavor-section">
@@ -11,7 +11,7 @@ const FlavourSection = () => {
         <div className="h-full">
           <FlavourSlider />
         </div>
-      </div>  
+      </div>
     </div>
   );
 };

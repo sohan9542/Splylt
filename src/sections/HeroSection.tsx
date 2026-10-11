@@ -1,6 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/all";
 import gsap from "gsap";
+
 const Hero = () => {
   useGSAP(() => {
     const title = SplitText.create(".hero-title", {
@@ -34,29 +35,29 @@ const Hero = () => {
         "-=0.8",
       );
 
-    const herotl = gsap.timeline({
+    const heroTl = gsap.timeline({
       scrollTrigger: {
         trigger: ".hero-container",
         start: "1% top",
         end: "bottom top",
         scrub: true,
-     
       },
     });
 
-    herotl.to(".hero-container",{
+    heroTl.to(".hero-container", {
       rotate: 7,
       scale: 0.9,
       yPercent: 30,
-      ease: "power2.inOut"
-    })
+      ease: "power2.inOut",
+    });
   });
+
   return (
     <div className="bg-main-bg">
       <div className="hero-container">
         <img
-          src="\images\static-img.png"
-          alt="hero-img"
+          src="/images/static-img.png"
+          alt="SPYLT protein milk can"
           className="absolute bottom-0 left-1/2 -translate-x-1/2 object-auto scale-100 md:scale-150"
         />
         <div className="hero-content opacity-0">
@@ -67,16 +68,18 @@ const Hero = () => {
               className="hero-text-scroll"
             >
               <div className="hero-subtitle">
-                <h1>Protien + Caffine</h1>
+                <h1>Protein + Caffeine</h1>
               </div>
             </div>
           </div>
-          <h2 className="hero-description ">
-            Live life to the fullest  with SPYLT: Shatter boredom and embrace
+          <h2 className="hero-description">
+            Live life to the fullest with SPYLT: Shatter boredom and embrace
             your inner kid with every deliciously smooth chug.
           </h2>
 
-          <button className="hero-button">Chug the SPYLT</button>
+          <button type="button" className="hero-button">
+            Chug the SPYLT
+          </button>
         </div>
       </div>
     </div>
