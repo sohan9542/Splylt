@@ -1,15 +1,23 @@
-interface Flavor {
+export type FlavorColor =
+  | "brown"
+  | "red"
+  | "blue"
+  | "orange"
+  | "white"
+  | "black";
+
+export interface Flavor {
   name: string;
-  color: string;
+  color: FlavorColor;
   rotation: string;
 }
 
-interface Nutrient {
+export interface Nutrient {
   label: string;
   amount: string;
 }
 
-interface Card {
+export interface TestimonialCard {
   src: string;
   rotation: string;
   name: string;
@@ -17,14 +25,14 @@ interface Card {
   translation?: string;
 }
 
-const flavorlists: Flavor[] = [
+export const flavorList: Flavor[] = [
   {
     name: "Chocolate Milk",
     color: "brown",
     rotation: "md:rotate-[-8deg] rotate-0",
   },
   {
-    name: "Stawberry Milk",
+    name: "Strawberry Milk",
     color: "red",
     rotation: "md:rotate-[8deg] rotate-0",
   },
@@ -50,7 +58,8 @@ const flavorlists: Flavor[] = [
   },
 ];
 
-const nutrientLists: Nutrient[] = [
+/** Prepared for upcoming nutrition section */
+export const nutrientList: Nutrient[] = [
   { label: "Potassium", amount: "245mg" },
   { label: "Calcium", amount: "500mg" },
   { label: "Vitamin A", amount: "176mcg" },
@@ -58,7 +67,8 @@ const nutrientLists: Nutrient[] = [
   { label: "Iron", amount: "1mg" },
 ];
 
-const cards: Card[] = [
+/** Prepared for upcoming testimonials section */
+export const testimonialCards: TestimonialCard[] = [
   {
     src: "/videos/f1.mp4",
     rotation: "rotate-z-[-10deg]",
@@ -108,4 +118,10 @@ const cards: Card[] = [
   },
 ];
 
-export { flavorlists, nutrientLists, cards };
+export function getFlavorAssets(color: FlavorColor) {
+  return {
+    background: `/images/${color}-bg.svg`,
+    drink: `/images/${color}-drink.webp`,
+    elements: `/images/${color}-elements.webp`,
+  } as const;
+}
